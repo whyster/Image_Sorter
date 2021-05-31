@@ -16,20 +16,22 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using System.Data.SQLite;
 namespace Image_Sorter_Project {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow {
-        private WinForms.FolderBrowserDialog _Folder_Dialog;
-        public MainWindow()
-        {
-            _Folder_Dialog = new WinForms.FolderBrowserDialog();
+        // private WinForms.FolderBrowserDialog _Folder_Dialog;
+        private WinForms.OpenFileDialog _Load_Dialog;
+        public MainWindow() {
+            
+            _Load_Dialog = new WinForms.OpenFileDialog();
+            // _Folder_Dialog = new WinForms.FolderBrowserDialog();
             InitializeComponent();
 
-            path_box.Text = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
-            _Folder_Dialog.RootFolder = Environment.SpecialFolder.MyComputer;
+            // path_box.Text = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures) + @"\data.db";
+            // _Folder_Dialog.RootFolder = Environment.SpecialFolder.MyComputer;
         }
 
         private void fetch_file_thumbnails(string path) {
@@ -47,26 +49,28 @@ namespace Image_Sorter_Project {
                 new_image.Stretch = Stretch.Uniform;
                 new_image.Source = new BitmapImage(new Uri(entry));
                 
-                // Button button = new Button();
-                // button.Content = entry;
                 wrap_panel.Children.Add(new_image);
             }
 
             
         }
 
-        private void browse_button_Click(object sender, RoutedEventArgs e)
-        {
-            WinForms.DialogResult result = _Folder_Dialog.ShowDialog();
-            if (result == WinForms.DialogResult.OK)
-            {
-                path_box.Text = _Folder_Dialog.SelectedPath;
-            }
+        private void Create_Database_File(string path) {
+            string file_path = path + "database.sqlite";
+            SQLiteConnection.CreateFile(file_path);
+            
+            
         }
 
-        private void start_Click(object sender, RoutedEventArgs e)
-        {
-            fetch_file_thumbnails(path_box.Text);
+        private void Load_Click(object sender, RoutedEventArgs e) {
+
+            _Load_Dialog.DefaultExt = "sqlite";
+            _Load_Dialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
+            WinForms.DialogResult result = _Load_Dialog.ShowDialog();
+            // WinForms.DialogResult result = _Folder_Dialog.ShowDialog();
+            if (result == WinForms.DialogResult.OK) {
+                // fetch_file_thumbnails(_Load_Dialog.FileName);
+            }
         }
     }
 }
