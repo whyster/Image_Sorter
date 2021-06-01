@@ -11,13 +11,24 @@
             <ColumnDefinition Width="283*"/>
             <ColumnDefinition Width="234*"/>
         </Grid.ColumnDefinitions>
-        <ScrollViewer Margin="10,22.96,10,10" x:Name="scroll_viewer" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" CanContentScroll="True" Grid.ColumnSpan="2">
+        <ScrollViewer Margin="10,22.96,10,26.96" x:Name="scroll_viewer" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" CanContentScroll="True" Grid.ColumnSpan="2">
             <WrapPanel x:Name="wrap_panel" HorizontalAlignment="Left" VerticalAlignment="Top" ScrollViewer.CanContentScroll="True" UseLayoutRounding="True" ScrollViewer.VerticalScrollBarVisibility="Auto" Width="{Binding Width, ElementName=scroll_viewer}" MaxWidth="{Binding ActualWidth, ElementName=scroll_viewer}" />
         </ScrollViewer>
         <Menu x:Name="Menu" VerticalAlignment="Top" Grid.ColumnSpan="2" RenderTransformOrigin="0.5,0.5">
             <MenuItem x:Name="File_top" Header="File">
-                <MenuItem x:Name="Load_Item" Header="Load" HorizontalAlignment="Left" Margin="0,0,-1,0" Click="Load_Click"/>
+                <MenuItem x:Name="New_Item" Header="New" HorizontalAlignment="Left">
+                    <MenuItem x:Name="Database_Item" Header="Database" HorizontalAlignment="Left" Margin="0,0,-1,0" Click="Create_New_Database_Click" />
+                    <MenuItem x:Name="Tag_Item" Header="Tag" HorizontalAlignment="Left" Click="Create_New_Tag_Click"/>
+                </MenuItem>
+                <MenuItem x:Name="Load_Item" Header="Load" HorizontalAlignment="Left" Margin="0,0,-1,0" Click="Load_Database_Click"/>
+                <MenuItem x:Name="Import_item" Header="Import Images" HorizontalAlignment="Left" Margin="0,0,-1,0" Click="Import_Images_Click" />
+            </MenuItem>
+            <MenuItem x:Name="View_top" Header="View">
+                <MenuItem x:Name="Refresh" Header="Refresh" HorizontalAlignment="Left" Click="Refresh_Click"/>
             </MenuItem>
         </Menu>
+        <StatusBar x:Name="Status_bar" VerticalAlignment="Bottom" Grid.ColumnSpan="2">
+            <StatusBarItem x:Name="Status_Item" Content="Not Connected" VerticalAlignment="Center"/>
+        </StatusBar>
     </Grid>
 </Window>
